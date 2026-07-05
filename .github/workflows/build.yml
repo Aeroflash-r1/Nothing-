@@ -53,6 +53,9 @@ jobs:
             "build-tools;36.0.0" \
             --sdk_root=$HOME/android
 
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
       - name: Setup Gradle cache
         uses: gradle/actions/setup-gradle@v4
 
