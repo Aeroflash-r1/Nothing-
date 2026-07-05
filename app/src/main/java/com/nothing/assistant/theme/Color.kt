@@ -1,28 +1,28 @@
 package com.nothing.assistant.theme
 
-import androidx.compose.material3.darkColorScheme
 import androidx.compose.ui.graphics.Color
+import androidx.wear.compose.material3.ColorScheme
 
 /**
  * Material 3 color tokens for Nothing Assistant.
  * Dark baseline — black AMOLED background, white text, purple accents.
  *
  * True black (#000000) is used for background so AMOLED pixels stay off in idle/ambient.
- * Uses the standard Material3 darkColorScheme() which supports the full MD3 color set.
  */
-val WearColorScheme = darkColorScheme(
+val WearColorScheme = ColorScheme(
     // Primary — main accent (buttons, active mic, links)
     primary = Color(0xFFB39DDB),
+    onPrimary = Color(0xFF000000),
 
     // Primary container — assistant chat bubbles
     primaryContainer = Color(0xFF3B2C5E),
-
-    // On-primary container — text inside assistant bubbles
     onPrimaryContainer = Color(0xFFF3EAFF),
 
     // Secondary — subtle highlights
     secondary = Color(0xFFE1BEE7),
     onSecondary = Color(0xFF000000),
+    secondaryContainer = Color(0xFF4A3A5C),
+    onSecondaryContainer = Color(0xFFF3EAF5),
 
     // Tertiary
     tertiary = Color(0xFFD0BCFF),
@@ -51,12 +51,4 @@ val WearColorScheme = darkColorScheme(
     onError = Color(0xFF000000),
     errorContainer = Color(0xFF93000A),
     onErrorContainer = Color(0xFFFFDAD6),
-
-    // Inverse
-    inverseSurface = Color(0xFFE6E1E5),
-    inverseOnSurface = Color(0xFF1C1B1F),
-    inversePrimary = Color(0xFF6750A4),
-
-    // Surface tint
-    surfaceTint = Color(0xFFB39DDB),
 )

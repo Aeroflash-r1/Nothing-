@@ -2,9 +2,7 @@ package com.nothing.assistant.tile
 
 import android.app.PendingIntent
 import android.content.Intent
-import androidx.wear.protolayout.ActionBuilders
 import androidx.wear.protolayout.DimensionBuilders
-import androidx.wear.protolayout.ElementBuilders
 import androidx.wear.protolayout.LayoutElementBuilders
 import androidx.wear.protolayout.ResourceBuilders
 import androidx.wear.tiles.RequestBuilders
@@ -16,13 +14,7 @@ import com.nothing.assistant.MainActivity
 
 /**
  * Quick-access Tile for Wear OS.
- *
- * Shows the app name and a "Tap to ask" prompt with a mic quick-action chip
- * that deep-links into the chat screen with the mic pre-armed.
- *
- * This Tile is intentionally static — no live data, no periodic refresh,
- * no background polling. Its only job is a fast launch shortcut, so there
- * is nothing to poll and nothing draining battery in the background.
+ * Shows the app name and deep-links into the chat screen.
  */
 class AssistantTileService : TileService() {
 
@@ -34,16 +26,12 @@ class AssistantTileService : TileService() {
     }
 
     private fun buildTile(): TileBuilders.Tile {
-        val textElement = ElementBuilders.TextElement.Builder()
+        val text = LayoutElementBuilders.Text.Builder()
             .setText("Nothing Assistant")
             .build()
 
         val column = LayoutElementBuilders.Column.Builder()
-            .setWidth(DimensionBuilders.dp(200))
-            .setHeight(DimensionBuilders.dp(200))
-            .setVerticalAlignment(LayoutElementBuilders.VERTICAL_ALIGN_CENTER)
-            .setHorizontalAlignment(LayoutElementBuilders.HORIZONTAL_ALIGN_CENTER)
-            .setContent(textElement)
+            .addContent(text)
             .build()
 
         val timeline = ResourceBuilders.Timeline.Builder()
