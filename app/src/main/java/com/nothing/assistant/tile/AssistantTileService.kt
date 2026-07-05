@@ -2,7 +2,6 @@ package com.nothing.assistant.tile
 
 import android.app.PendingIntent
 import android.content.Intent
-import androidx.wear.protolayout.DeviceConfiguration
 import androidx.wear.protolayout.ResourceBuilders
 import androidx.wear.protolayout.material3.CompactChip
 import androidx.wear.protolayout.material3.Text
