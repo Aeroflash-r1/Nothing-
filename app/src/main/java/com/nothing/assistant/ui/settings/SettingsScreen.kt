@@ -209,7 +209,7 @@ fun SettingsScreen(
                 Card(
                     onClick = {},
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.backgroundVariant
+                        containerColor = MaterialTheme.colorScheme.secondaryContainer
                     )
                 ) {
                     Column(
