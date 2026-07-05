@@ -44,7 +44,7 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import androidx.wear.compose.foundation.lazy.TransformingLazyColumn
 import androidx.wear.compose.foundation.lazy.items
-import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
+import androidx.wear.compose.foundation.lazy.rememberTransformingLazyColumnState
 import androidx.wear.compose.material3.Button
 import androidx.wear.compose.material3.ButtonDefaults
 import androidx.wear.compose.material3.Card
@@ -55,7 +55,7 @@ import androidx.wear.compose.material3.MaterialTheme
 import androidx.wear.compose.material3.ScreenScaffold
 import androidx.wear.compose.material3.Text
 import androidx.wear.compose.material3.TimeText
-import androidx.core.app.RemoteInput
+import android.app.RemoteInput
 import androidx.wear.input.RemoteInputIntentHelper
 import com.nothing.assistant.R
 import com.nothing.assistant.data.ChatMessage
@@ -76,7 +76,7 @@ fun ChatScreen(
     val messages by viewModel.messages.collectAsState()
     val context = LocalContext.current
     val activity = context as? Activity
-    val listState = rememberScalingLazyListState()
+    val listState = rememberTransformingLazyColumnState()
     var showContextMenuFor by remember { mutableStateOf<ChatMessage?>(null) }
     var micPermissionDenied by remember { mutableStateOf(false) }
 
@@ -92,7 +92,7 @@ fun ChatScreen(
     val textInputLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult()
     ) { result ->
-        val bundle = RemoteInputIntentHelper.getResultsFromIntent(result.data)
+        val bundle = RemoteInput.getResultsFromIntent(result.data)
         val text = bundle?.getCharSequence(REMOTE_INPUT_KEY)?.toString()
         if (text != null) viewModel.sendMessage(text)
     }

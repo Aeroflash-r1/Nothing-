@@ -3,9 +3,9 @@ package com.nothing.assistant
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
-import androidx.wear.compose.navigation.NavHost
+import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.composable
-import androidx.wear.compose.navigation.rememberNavController
+import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.nothing.assistant.theme.AssistantTheme
 import com.nothing.assistant.ui.chat.ChatScreen
 import com.nothing.assistant.ui.chat.ChatViewModel
@@ -25,7 +25,7 @@ fun WearApp(
     appContainer: AppContainer,
     launchWithMic: Boolean = false,
 ) {
-    val navController = rememberNavController()
+    val navController = rememberSwipeDismissableNavController()
     val viewModel = remember {
         ChatViewModel(
             apiKeyStore = appContainer.apiKeyStore,
@@ -37,7 +37,7 @@ fun WearApp(
     val startDestination = if (appContainer.apiKeyStore.hasApiKey()) "chat" else "onboarding"
 
     AssistantTheme {
-        NavHost(
+        SwipeDismissableNavHost(
             navController = navController,
             startDestination = startDestination,
         ) {

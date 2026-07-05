@@ -3,16 +3,17 @@ package com.nothing.assistant.tile
 import android.app.PendingIntent
 import android.content.Intent
 import androidx.wear.protolayout.ResourceBuilders
-import androidx.wear.protolayout.material3.CompactChip
-import androidx.wear.protolayout.material3.Text
-import androidx.wear.protolayout.material3.Typography
-import androidx.wear.protolayout.material3.layouts.PrimaryLayout
-import androidx.wear.protolayout.material3.tile.Toolbar
+import androidx.wear.protolayout.material.CompactChip
+import androidx.wear.protolayout.material.Text
+import androidx.wear.protolayout.material.Typography
+import androidx.wear.protolayout.material.layouts.PrimaryLayout
+import androidx.wear.protolayout.material.tile.Toolbar
 import androidx.wear.tiles.RequestBuilders
+import androidx.wear.tiles.TileBuilders
 import androidx.wear.tiles.TileService
-import com.nothing.assistant.MainActivity
 import com.google.common.util.concurrent.Futures
 import com.google.common.util.concurrent.ListenableFuture
+import com.nothing.assistant.MainActivity
 
 /**
  * Quick-access Tile for Wear OS.
@@ -28,12 +29,12 @@ class AssistantTileService : TileService() {
 
     override fun onTileRequest(
         requestParams: RequestBuilders.TileRequest
-    ): ListenableFuture<ResourceBuilders.Tile> {
+    ): ListenableFuture<TileBuilders.Tile> {
         val tile = buildTile()
         return Futures.immediateFuture(tile)
     }
 
-    private fun buildTile(): ResourceBuilders.Tile {
+    private fun buildTile(): TileBuilders.Tile {
         val layout = PrimaryLayout.Builder(deviceConfiguration)
             .setContent(
                 Text.Builder()
@@ -57,7 +58,7 @@ class AssistantTileService : TileService() {
             )
             .build()
 
-        return ResourceBuilders.Tile.Builder()
+        return TileBuilders.Tile.Builder()
             .setResourcesBuilder(ResourceBuilders.Resources.Builder())
             .setTileTimeline(
                 ResourceBuilders.Timeline.Builder()

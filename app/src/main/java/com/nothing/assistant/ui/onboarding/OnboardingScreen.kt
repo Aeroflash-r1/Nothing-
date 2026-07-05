@@ -31,7 +31,7 @@ import androidx.wear.compose.material3.ButtonDefaults
 import androidx.wear.compose.material3.MaterialTheme
 import androidx.wear.compose.material3.ScreenScaffold
 import androidx.wear.compose.material3.Text
-import androidx.core.app.RemoteInput
+import android.app.RemoteInput
 import androidx.wear.input.RemoteInputIntentHelper
 import com.nothing.assistant.data.ApiKeyStore
 import com.nothing.assistant.data.GeminiClient
@@ -57,7 +57,7 @@ fun OnboardingScreen(
     val textInputLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult()
     ) { result ->
-        val bundle = RemoteInputIntentHelper.getResultsFromIntent(result.data)
+        val bundle = RemoteInput.getResultsFromIntent(result.data)
         val text = bundle?.getCharSequence(REMOTE_INPUT_KEY)?.toString()
         if (text != null) {
             apiKey = text.trim()

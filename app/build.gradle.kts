@@ -77,6 +77,9 @@ dependencies {
     // ── OkHttp (lightweight HTTP for Gemini API) ──
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
 
+    // ── Guava (ListenableFuture for TileService) ──
+    implementation("com.google.guava:guava:33.4.0-android")
+
     // ── Kotlin Coroutines ──
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
