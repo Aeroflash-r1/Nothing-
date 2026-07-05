@@ -101,8 +101,9 @@ fun ChatScreen(
     val voiceInputLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult()
     ) { result ->
-        if (result.resultCode == Activity.RESULT_OK && result.data != null) {
-            val text = result.data
+        val data = result.data
+        if (result.resultCode == Activity.RESULT_OK && data != null) {
+            val text = data
                 .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                 ?.firstOrNull()
             if (text != null) viewModel.sendMessage(text)
@@ -235,7 +236,7 @@ fun ChatScreen(
                         .setLabel(context.getString(R.string.chat_hint))
                         .build()
                     val intent = RemoteInputIntentHelper.createActionRemoteInputIntent()
-                    RemoteInputIntentHelper.putRemoteInputsExtra(intent, arrayOf(remoteInput))
+                    RemoteInputIntentHelper.putRemoteInputsExtra(intent, listOf(remoteInput))
                     textInputLauncher.launch(intent)
                 },
                 onVoiceInput = {
@@ -311,6 +312,7 @@ private fun ThinkingIndicator(modifier: Modifier = Modifier) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Card(
+            onClick = {},
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.primaryContainer
             ),
@@ -352,6 +354,7 @@ private fun ErrorBanner(
         horizontalArrangement = Arrangement.Center
     ) {
         Card(
+            onClick = {},
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.errorContainer
             ),

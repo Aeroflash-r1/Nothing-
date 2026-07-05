@@ -2,12 +2,11 @@ package com.nothing.assistant.tile
 
 import android.app.PendingIntent
 import android.content.Intent
+import androidx.wear.protolayout.ActionBuilders
+import androidx.wear.protolayout.DimensionBuilders
+import androidx.wear.protolayout.ElementBuilders
+import androidx.wear.protolayout.LayoutElementBuilders
 import androidx.wear.protolayout.ResourceBuilders
-import androidx.wear.protolayout.material.CompactChip
-import androidx.wear.protolayout.material.Text
-import androidx.wear.protolayout.material.Typography
-import androidx.wear.protolayout.material.layouts.PrimaryLayout
-import androidx.wear.protolayout.material.tile.Toolbar
 import androidx.wear.tiles.RequestBuilders
 import androidx.wear.tiles.TileBuilders
 import androidx.wear.tiles.TileService
@@ -35,40 +34,29 @@ class AssistantTileService : TileService() {
     }
 
     private fun buildTile(): TileBuilders.Tile {
-        val layout = PrimaryLayout.Builder(deviceConfiguration)
-            .setContent(
-                Text.Builder()
-                    .setText("Nothing Assistant")
-                    .setTypography(Typography.TYPOGRAPHY_TITLE2)
-                    .build()
-            )
-            .setToolbar(
-                Toolbar.Builder()
-                    .setContentDescription("Assistant")
-                    .build()
-            )
-            .setPrimaryChipContent(
-                CompactChip.Builder(
-                    deviceConfiguration = deviceConfiguration,
-                    label = "Tap to ask",
-                    onClick = createOpenAppPendingIntent(),
-                )
-                    .setContentDescription("Open assistant")
+        val textElement = ElementBuilders.TextElement.Builder()
+            .setText("Nothing Assistant")
+            .build()
+
+        val column = LayoutElementBuilders.Column.Builder()
+            .setWidth(DimensionBuilders.dp(200))
+            .setHeight(DimensionBuilders.dp(200))
+            .setVerticalAlignment(LayoutElementBuilders.VERTICAL_ALIGN_CENTER)
+            .setHorizontalAlignment(LayoutElementBuilders.HORIZONTAL_ALIGN_CENTER)
+            .setContent(textElement)
+            .build()
+
+        val timeline = ResourceBuilders.Timeline.Builder()
+            .addTimelineEntry(
+                ResourceBuilders.TimelineEntry.Builder()
+                    .setLayout(column)
                     .build()
             )
             .build()
 
         return TileBuilders.Tile.Builder()
             .setResourcesBuilder(ResourceBuilders.Resources.Builder())
-            .setTileTimeline(
-                ResourceBuilders.Timeline.Builder()
-                    .addTimelineEntry(
-                        ResourceBuilders.TimelineEntry.Builder()
-                            .setLayout(layout)
-                            .build()
-                    )
-                    .build()
-            )
+            .setTileTimeline(timeline)
             .build()
     }
 

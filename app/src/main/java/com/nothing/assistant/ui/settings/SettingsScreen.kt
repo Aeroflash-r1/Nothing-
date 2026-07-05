@@ -207,6 +207,7 @@ fun SettingsScreen(
 
             if (showClearConfirm) {
                 Card(
+                    onClick = {},
                     colors = CardDefaults.cardColors(
                         containerColor = MaterialTheme.colorScheme.surfaceVariant
                     )

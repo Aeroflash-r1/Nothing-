@@ -112,7 +112,7 @@ fun OnboardingScreen(
                         .setLabel(context.getString(com.nothing.assistant.R.string.api_key_hint))
                         .build()
                     val intent = RemoteInputIntentHelper.createActionRemoteInputIntent()
-                    RemoteInputIntentHelper.putRemoteInputsExtra(intent, arrayOf(remoteInput))
+                    RemoteInputIntentHelper.putRemoteInputsExtra(intent, listOf(remoteInput))
                     textInputLauncher.launch(intent)
                 },
                 modifier = Modifier
