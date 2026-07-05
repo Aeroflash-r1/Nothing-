@@ -163,7 +163,7 @@ fun ChatScreen(
                         ) {
                             Text(
                                 text = "No messages yet.\nTap the mic or text field to start.",
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                color = MaterialTheme.colorScheme.onBackground,
                                 textAlign = TextAlign.Center,
                                 fontSize = 12.sp,
                             )
@@ -275,7 +275,7 @@ private fun MessageBubble(
                 onLongClick = onLongClick,
                 colors = CardDefaults.cardColors(
                     containerColor = if (isUser)
-                        MaterialTheme.colorScheme.surfaceVariant
+                        MaterialTheme.colorScheme.secondaryContainer
                     else
                         MaterialTheme.colorScheme.primaryContainer
                 ),
@@ -400,7 +400,7 @@ private fun ContextMenuOverlay(
         Card(
             onClick = onDismiss,
             colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surfaceVariant
+                containerColor = MaterialTheme.colorScheme.secondaryContainer
             ),
             shape = RoundedCornerShape(16.dp),
             modifier = Modifier.padding(16.dp)
@@ -476,12 +476,12 @@ private fun InputBar(
                 .weight(1f)
                 .height(36.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.surfaceVariant
+                containerColor = MaterialTheme.colorScheme.secondaryContainer
             )
         ) {
             Text(
                 text = "Tap to type",
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                color = MaterialTheme.colorScheme.onBackground,
                 fontSize = 12.sp,
                 maxLines = 1
             )
@@ -491,7 +491,7 @@ private fun InputBar(
         val micBg = if (isListening)
             MaterialTheme.colorScheme.primary
         else
-            MaterialTheme.colorScheme.surfaceVariant
+            MaterialTheme.colorScheme.secondaryContainer
 
         Button(
             onClick = onVoiceInput,

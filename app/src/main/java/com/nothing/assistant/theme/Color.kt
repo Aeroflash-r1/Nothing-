@@ -8,6 +8,8 @@ import androidx.wear.compose.material3.ColorScheme
  * Dark baseline — black AMOLED background, white text, purple accents.
  *
  * True black (#000000) is used for background so AMOLED pixels stay off in idle/ambient.
+ * Note: Wear ColorScheme does not support surface/surfaceVariant parameters.
+ * Use background/onBackground for surface colors instead.
  */
 val WearColorScheme = ColorScheme(
     // Primary — main accent (buttons, active mic, links)
@@ -33,14 +35,6 @@ val WearColorScheme = ColorScheme(
     // Background — true black (AMOLED idle pixels off)
     background = Color(0xFF000000),
     onBackground = Color(0xFFFFFFFF),
-
-    // Surface — cards, message bubbles (barely lifted from black)
-    surface = Color(0xFF0E0B14),
-    onSurface = Color(0xFFFFFFFF),
-
-    // Surface variant — secondary surfaces, input fields
-    surfaceVariant = Color(0xFF1C1626),
-    onSurfaceVariant = Color(0xFFB8B3C4),
 
     // Outline — dividers, input borders
     outline = Color(0xFF3A3345),

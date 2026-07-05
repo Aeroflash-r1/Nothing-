@@ -74,7 +74,7 @@ fun SettingsScreen(
             Card(
                 onClick = { showModelPicker = !showModelPicker },
                 colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surface
+                    containerColor = MaterialTheme.colorScheme.background
                 )
             ) {
                 Column(modifier = Modifier.padding(12.dp)) {
@@ -123,7 +123,7 @@ fun SettingsScreen(
             Card(
                 onClick = { showKeyReplace = !showKeyReplace },
                 colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surface
+                    containerColor = MaterialTheme.colorScheme.background
                 )
             ) {
                 Column(modifier = Modifier.padding(12.dp)) {
@@ -164,7 +164,7 @@ fun SettingsScreen(
             Card(
                 onClick = { viewModel.hapticsEnabled = !viewModel.hapticsEnabled },
                 colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surface
+                    containerColor = MaterialTheme.colorScheme.background
                 )
             ) {
                 Row(
@@ -194,7 +194,7 @@ fun SettingsScreen(
             Card(
                 onClick = { showClearConfirm = true },
                 colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surface
+                    containerColor = MaterialTheme.colorScheme.background
                 )
             ) {
                 Text(
@@ -209,7 +209,7 @@ fun SettingsScreen(
                 Card(
                     onClick = {},
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceVariant
+                        containerColor = MaterialTheme.colorScheme.backgroundVariant
                     )
                 ) {
                     Column(

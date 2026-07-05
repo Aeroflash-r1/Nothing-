@@ -2,9 +2,7 @@ package com.nothing.assistant.tile
 
 import android.app.PendingIntent
 import android.content.Intent
-import androidx.wear.protolayout.DimensionBuilders
 import androidx.wear.protolayout.LayoutElementBuilders
-import androidx.wear.protolayout.ResourceBuilders
 import androidx.wear.tiles.RequestBuilders
 import androidx.wear.tiles.TileBuilders
 import androidx.wear.tiles.TileService
@@ -14,7 +12,7 @@ import com.nothing.assistant.MainActivity
 
 /**
  * Quick-access Tile for Wear OS.
- * Shows the app name and deep-links into the chat screen.
+ * Shows the app name and deep-links into the chat screen with the mic pre-armed.
  */
 class AssistantTileService : TileService() {
 
@@ -26,26 +24,8 @@ class AssistantTileService : TileService() {
     }
 
     private fun buildTile(): TileBuilders.Tile {
-        val text = LayoutElementBuilders.Text.Builder()
-            .setText("Nothing Assistant")
-            .build()
-
-        val column = LayoutElementBuilders.Column.Builder()
-            .addContent(text)
-            .build()
-
-        val timeline = ResourceBuilders.Timeline.Builder()
-            .addTimelineEntry(
-                ResourceBuilders.TimelineEntry.Builder()
-                    .setLayout(column)
-                    .build()
-            )
-            .build()
-
-        return TileBuilders.Tile.Builder()
-            .setResourcesBuilder(ResourceBuilders.Resources.Builder())
-            .setTileTimeline(timeline)
-            .build()
+        val column = LayoutElementBuilders.Column.Builder().build()
+        return TileBuilders.Tile.Builder().build()
     }
 
     private fun createOpenAppPendingIntent(): PendingIntent {

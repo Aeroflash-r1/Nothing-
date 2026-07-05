@@ -88,7 +88,7 @@ fun OnboardingScreen(
 
             Text(
                 text = "Enter your Gemini API key to get started",
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                color = MaterialTheme.colorScheme.onBackground,
                 fontSize = 12.sp,
                 textAlign = TextAlign.Center,
             )
@@ -119,7 +119,7 @@ fun OnboardingScreen(
                     .fillMaxWidth()
                     .height(44.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceVariant
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer
                 )
             ) {
                 Text(
@@ -130,7 +130,7 @@ fun OnboardingScreen(
                         "Tap to enter API key"
                     },
                     color = if (apiKey.isEmpty())
-                        MaterialTheme.colorScheme.onSurfaceVariant
+                        MaterialTheme.colorScheme.onBackground
                     else
                         MaterialTheme.colorScheme.onSurface,
                     fontSize = 10.sp,
@@ -185,7 +185,7 @@ fun OnboardingScreen(
 
             Text(
                 text = "Get your key from Google AI Studio\n-> ai.google.dev",
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                color = MaterialTheme.colorScheme.onBackground,
                 fontSize = 10.sp,
                 textAlign = TextAlign.Center,
             )
