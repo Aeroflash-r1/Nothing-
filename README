@@ -1,1 +1,97 @@
+# Nothing Assistant — Wear OS AI Assistant
 
+A production-quality, standalone Wear OS app for Samsung Galaxy Watch 7 (44mm) that provides a Gemini-powered AI assistant with voice and text input, chat history, and a quick-access Tile.
+
+## Tech Stack & Versions
+
+| Component | Version |
+|---|---|
+| **Compile SDK / Target SDK** | 36 (Android 16 "Baklava") |
+| **Min SDK** | 33 (Wear OS 4+) |
+| **Kotlin** | 2.1.0 |
+| **AGP (Android Gradle Plugin)** | 9.2.1 |
+| **Wear Compose Material3** | 1.5.0 |
+| **Wear Compose Foundation** | 1.5.0 |
+| **Wear Compose Navigation** | 1.5.0 |
+| **Room** | 2.8.4 |
+| **OkHttp** | 4.12.0 |
+| **Security-Crypto** | 1.1.0 |
+| **Wear Tiles** | 1.6.1 |
+| **Wear ProtoLayout** | 1.4.1 |
+
+Full dependency list: see `app/build.gradle.kts`.
+
+## How to Build & Run
+
+### Prerequisites
+- **Android Studio Ladybug** (2026.x) or newer
+- Wear OS emulator with **API 36**, **480×480 round** skin
+- A **Gemini API key** from [Google AI Studio](https://ai.google.dev)
+
+### Setup
+
+1. Open the project in Android Studio.
+2. Let Gradle sync (this will download all dependencies automatically).
+3. If prompted, install the Android SDK for API 36.
+4. **Do not build yet** — you need an API key first.
+
+### Getting a Gemini API Key
+
+1. Go to https://aistudio.google.com/app/apikey
+2. Sign in with your Google account.
+3. Click **Create API Key** (or use an existing key).
+4. Copy the key string (starts with `AIza...`).
+
+### Installing & Testing
+
+1. Connect a Wear OS emulator (480×480 round) or physical Galaxy Watch 7.
+2. Build and install the app via Android Studio (Run ▶).
+3. **On first launch**, you'll see the onboarding screen:
+   - Tap the "Tap to enter API key" field → Wear's keyboard opens.
+   - Paste your Gemini API key.
+   - Tap "Save & Continue" — the app validates the key before saving.
+4. Once validated, you enter the **chat screen**. Tap the mic or "Tap to type" to start a conversation.
+5. **To test the Tile:** Add the "Nothing Assistant" tile to your watch face via the phone's Wear OS app or long-press the watch face → customize → tiles.
+
+## Project Structure
+
+```
+app/src/main/java/com/nothing/assistant/
+├── MainActivity.kt           # Single activity, ambient lifecycle
+├── WearApp.kt                # Root composable + NavHost
+├── AppContainer.kt           # Manual DI container
+├── theme/
+│   ├── Color.kt              # Material 3 color tokens
+│   └── Theme.kt              # Wear Material 3 theme
+├── data/
+│   ├── ApiKeyStore.kt        # EncryptedSharedPreferences
+│   ├── ChatMessage.kt        # Room entity
+│   ├── ChatDao.kt            # Room DAO
+│   ├── ChatDatabase.kt       # Room database
+│   └── GeminiClient.kt       # Gemini API HTTP client
+├── ui/
+│   ├── onboarding/OnboardingScreen.kt
+│   ├── chat/ChatScreen.kt    # Main chat interface
+│   ├── chat/ChatViewModel.kt # Chat state management
+│   └── settings/SettingsScreen.kt
+└── tile/AssistantTileService.kt  # Wear Tile
+```
+
+## Key Design Decisions
+
+- **AMOLED-first**: True black background (`#000000`) so inactive pixels stay off.
+- **No background services**: 100% user-initiated. No polling, no WorkManager.
+- **No wake locks**: Network calls cancel when the screen turns off.
+- **Minimal animations**: Short (≤200ms) fade/slide, no looping/idle animations.
+- **Encrypted API key**: Stored via `EncryptedSharedPreferences` (Android Keystore).
+- **Local-only data**: Chat history stays in Room on-device — never synced.
+
+## Available Gemini Models
+
+| Setting | Model ID |
+|---|---|
+| Fast (default) | `gemini-2.5-flash-lite` |
+| Balanced | `gemini-3.1-flash-lite` |
+| Capable | `gemini-3.5-flash` |
+
+Switch models in **Settings → Gemini Model**.
