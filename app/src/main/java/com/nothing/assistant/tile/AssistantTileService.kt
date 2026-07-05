@@ -2,6 +2,7 @@ package com.nothing.assistant.tile
 
 import android.app.PendingIntent
 import android.content.Intent
+import androidx.wear.protolayout.DeviceConfiguration
 import androidx.wear.protolayout.ResourceBuilders
 import androidx.wear.protolayout.material3.CompactChip
 import androidx.wear.protolayout.material3.Text
@@ -9,8 +10,10 @@ import androidx.wear.protolayout.material3.Typography
 import androidx.wear.protolayout.material3.layouts.PrimaryLayout
 import androidx.wear.protolayout.material3.tile.Toolbar
 import androidx.wear.tiles.RequestBuilders
-import androidx.wear.tiles.material3.Material3TileService
+import androidx.wear.tiles.TileService
 import com.nothing.assistant.MainActivity
+import com.google.common.util.concurrent.Futures
+import com.google.common.util.concurrent.ListenableFuture
 
 /**
  * Quick-access Tile for Wear OS.
@@ -21,20 +24,18 @@ import com.nothing.assistant.MainActivity
  * This Tile is intentionally static — no live data, no periodic refresh,
  * no background polling. Its only job is a fast launch shortcut, so there
  * is nothing to poll and nothing draining battery in the background.
- *
- * NOTE: Material3TileService was introduced in Wear Tiles 1.6.0. The exact
- * method signature should be verified against the Tiles 1.6.1 API reference.
- * If `tileResponse()` doesn't exist as an override, use `produceTile()`
- * from the standard TileService base class instead.
  */
-class AssistantTileService : Material3TileService() {
+class AssistantTileService : TileService() {
 
-    override suspend fun tileResponse(
+    override fun onTileRequest(
         requestParams: RequestBuilders.TileRequest
-    ): ResourceBuilders.Tile {
-        // deviceConfiguration is a protected property from the base class,
-        // providing the current device's screen parameters
-        return PrimaryLayout.Builder(deviceConfiguration)
+    ): ListenableFuture<ResourceBuilders.Tile> {
+        val tile = buildTile()
+        return Futures.immediateFuture(tile)
+    }
+
+    private fun buildTile(): ResourceBuilders.Tile {
+        val layout = PrimaryLayout.Builder(deviceConfiguration)
             .setContent(
                 Text.Builder()
                     .setText("Nothing Assistant")
@@ -56,20 +57,19 @@ class AssistantTileService : Material3TileService() {
                     .build()
             )
             .build()
-            .let { layout ->
-                ResourceBuilders.Tile.Builder()
-                    .setResourcesBuilder(ResourceBuilders.Resources.Builder())
-                    .setTileTimeline(
-                        ResourceBuilders.Timeline.Builder()
-                            .addTimelineEntry(
-                                ResourceBuilders.TimelineEntry.Builder()
-                                    .setLayout(layout)
-                                    .build()
-                            )
+
+        return ResourceBuilders.Tile.Builder()
+            .setResourcesBuilder(ResourceBuilders.Resources.Builder())
+            .setTileTimeline(
+                ResourceBuilders.Timeline.Builder()
+                    .addTimelineEntry(
+                        ResourceBuilders.TimelineEntry.Builder()
+                            .setLayout(layout)
                             .build()
                     )
                     .build()
-            }
+            )
+            .build()
     }
 
     private fun createOpenAppPendingIntent(): PendingIntent {

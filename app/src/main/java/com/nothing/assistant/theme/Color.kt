@@ -51,12 +51,4 @@ val WearColorScheme = ColorScheme(
     onError = Color(0xFF000000),
     errorContainer = Color(0xFF93000A),
     onErrorContainer = Color(0xFFFFDAD6),
-
-    // Inverse
-    inverseSurface = Color(0xFFE6E1E5),
-    inverseOnSurface = Color(0xFF1C1B1F),
-    inversePrimary = Color(0xFF6750A4),
-
-    // Surface tint
-    surfaceTint = Color(0xFFB39DDB),
 )

@@ -31,9 +31,11 @@ import androidx.wear.compose.material3.ButtonDefaults
 import androidx.wear.compose.material3.MaterialTheme
 import androidx.wear.compose.material3.ScreenScaffold
 import androidx.wear.compose.material3.Text
+import androidx.core.app.RemoteInput
 import androidx.wear.input.RemoteInputIntentHelper
 import com.nothing.assistant.data.ApiKeyStore
 import com.nothing.assistant.data.GeminiClient
+import com.nothing.assistant.ui.chat.REMOTE_INPUT_KEY
 import kotlinx.coroutines.launch
 
 /**
@@ -55,8 +57,8 @@ fun OnboardingScreen(
     val textInputLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult()
     ) { result ->
-        val text = RemoteInputIntentHelper.getRemoteInputResults(result.data)
-            ?.values?.firstOrNull()
+        val bundle = RemoteInputIntentHelper.getResultsFromIntent(result.data)
+        val text = bundle?.getCharSequence(REMOTE_INPUT_KEY)?.toString()
         if (text != null) {
             apiKey = text.trim()
             errorMessage = null
@@ -106,9 +108,11 @@ fun OnboardingScreen(
             // Text field button — launches Wear's native keyboard
             Button(
                 onClick = {
-                    val intent = RemoteInputIntentHelper.createRemoteInputIntent(
-                        context.getString(com.nothing.assistant.R.string.api_key_hint)
-                    )
+                    val remoteInput = RemoteInput.Builder(REMOTE_INPUT_KEY)
+                        .setLabel(context.getString(com.nothing.assistant.R.string.api_key_hint))
+                        .build()
+                    val intent = RemoteInputIntentHelper.createActionRemoteInputIntent()
+                    RemoteInputIntentHelper.putRemoteInputsExtra(intent, arrayOf(remoteInput))
                     textInputLauncher.launch(intent)
                 },
                 modifier = Modifier

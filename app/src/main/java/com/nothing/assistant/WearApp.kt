@@ -3,9 +3,9 @@ package com.nothing.assistant
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
+import androidx.wear.compose.navigation.NavHost
+import androidx.wear.compose.navigation.composable
+import androidx.wear.compose.navigation.rememberNavController
 import com.nothing.assistant.theme.AssistantTheme
 import com.nothing.assistant.ui.chat.ChatScreen
 import com.nothing.assistant.ui.chat.ChatViewModel

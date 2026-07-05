@@ -55,6 +55,7 @@ import androidx.wear.compose.material3.MaterialTheme
 import androidx.wear.compose.material3.ScreenScaffold
 import androidx.wear.compose.material3.Text
 import androidx.wear.compose.material3.TimeText
+import androidx.core.app.RemoteInput
 import androidx.wear.input.RemoteInputIntentHelper
 import com.nothing.assistant.R
 import com.nothing.assistant.data.ChatMessage
@@ -91,8 +92,8 @@ fun ChatScreen(
     val textInputLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult()
     ) { result ->
-        val text = RemoteInputIntentHelper.getRemoteInputResults(result.data)
-            ?.values?.firstOrNull()
+        val bundle = RemoteInputIntentHelper.getResultsFromIntent(result.data)
+        val text = bundle?.getCharSequence(REMOTE_INPUT_KEY)?.toString()
         if (text != null) viewModel.sendMessage(text)
     }
 
@@ -230,9 +231,11 @@ fun ChatScreen(
             // Bottom input bar
             InputBar(
                 onTextInput = {
-                    val intent = RemoteInputIntentHelper.createRemoteInputIntent(
-                        context.getString(R.string.chat_hint)
-                    )
+                    val remoteInput = RemoteInput.Builder(REMOTE_INPUT_KEY)
+                        .setLabel(context.getString(R.string.chat_hint))
+                        .build()
+                    val intent = RemoteInputIntentHelper.createActionRemoteInputIntent()
+                    RemoteInputIntentHelper.putRemoteInputsExtra(intent, arrayOf(remoteInput))
                     textInputLauncher.launch(intent)
                 },
                 onVoiceInput = {
@@ -517,6 +520,8 @@ private fun createVoiceInputIntent(): Intent {
         putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, false)
     }
 }
+
+internal const val REMOTE_INPUT_KEY = "text_input"
 
 private fun requestMicAndLaunch(
     activity: Activity?,
